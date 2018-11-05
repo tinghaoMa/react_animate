@@ -9,6 +9,7 @@ import AnimatedSpring from './animations/AnimatedSpring';
 import AnimatedDecay from './animations/AnimatedDecay';
 import AnimatedParallel from './animations/AnimatedParallel';
 import AnimatedSequence from './animations/AnimatedSequence';
+import AnimatedStagger from './animations/AnimatedStagger';
 import {name as appName} from './app.json';
 
-AppRegistry.registerComponent(appName, () => AnimatedSequence);
+AppRegistry.registerComponent(appName, () => AnimatedStagger);
