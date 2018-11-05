@@ -34,12 +34,7 @@ export default class LayoutAnimationDemo extends React.Component {
 
     _onPress() {
 
-        // let newVar = LayoutAnimation.create(700,
-        //     LayoutAnimation.Types.spring,
-        //     LayoutAnimation.Properties.scaleXY);
-        // LayoutAnimation.configureNext(newVar);
-        //
-        // LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
 
         this.setState({width: this.state.width + 10, height: this.state.height + 10});
     }
