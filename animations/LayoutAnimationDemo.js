@@ -8,12 +8,14 @@
 import React, {Component} from 'react';
 import {
     NativeModules,
-    LayoutAnimation,
+    Platform,
     StyleSheet,
     Text,
     View,
+    Image,
     TouchableOpacity,
-    Platform,
+    Dimensions,
+    LayoutAnimation,
 } from 'react-native';
 
 const {UIManager} = NativeModules;
@@ -22,89 +24,75 @@ if (Platform.OS === 'android') {
     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-export default class LayoutAnimationDemo extends React.Component {
+var screenW = Dimensions.get('window').width;
+var screenH = Dimensions.get('window').height;
 
+export default class LayoutAnimationDemo extends Component {
     constructor(props) {
-        super(props);
+        super(props)
+
         this.state = {
-            width: 200,
-            height: 20,
-        };
+            width: 100,
+            height: 150,
+            left: 20,
+            top: 20,
+        }
     }
 
-    _onPress() {
+    _clickStartAnimation() {
+        LayoutAnimation.configureNext({
+            duration: 1000,   //持续时间
+            create: {
+                type: LayoutAnimation.Types.easeInEaseOut,
+                property: LayoutAnimation.Properties.scaleXY,
+                springDamping: 0.6
+            },
+            update: {
+                type: 'easeOut',
+                springDamping: 0.6
+            }
+        });
+        // LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
 
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
-
-        this.setState({width: this.state.width + 10, height: this.state.height + 10});
+        this.setState({
+            width: this.state.width + 40,
+            height: this.state.height + 60,
+            left: this.state.left + 20,
+            top: this.state.top + 50,
+        });
     }
 
     render() {
         return (
-            <View style={styles.container}>
-                <View ref="view" style={[styles.content, {width: this.state.width, height: this.state.height}]}>
-                    <Text style={[{textAlign: 'center'}]}>Hello World!</Text>
-                </View>
-                <TouchableOpacity style={styles.content} onPress={this._onPress.bind(this)}>
-                    <View style={styles.button}>
-                        <Text style={styles.buttonText}>Press me!</Text>
-                    </View>
+            <View style={styles.mainStyle}>
+
+                <Image style={{
+                    width: this.state.width,
+                    height: this.state.height,
+                    position: 'absolute',
+                    left: this.state.left,
+                    top: this.state.top
+                }}
+                       source={require('../res/imgs/lyf.jpeg')}>
+                </Image>
+
+                <TouchableOpacity style={{width: 200, height: 50, backgroundColor: 'yellow', marginTop: 40}}
+                                  onPress={this._clickStartAnimation.bind(this)}>
+                    <Text style={{width: 200, height: 50, textAlign: 'center', lineHeight: 50}}>点击开始动画</Text>
                 </TouchableOpacity>
             </View>
         );
     }
 }
-
-const customAnim = {
-    customSpring: {
-        duration: 400,
-        create: {
-            type: LayoutAnimation.Types.spring,
-            property: LayoutAnimation.Properties.scaleXY,
-            springDamping: 0.6
-        },
-        update: {
-            type: LayoutAnimation.Types.spring,
-            springDamping: 0.6
-        }
-    },
-    customLinear: {
-        duration: 200,
-        create: {
-            type: LayoutAnimation.Types.linear,
-            property: LayoutAnimation.Properties.opacity,
-        },
-        update: {
-            type: LayoutAnimation.Types.easeInEaseOut
-        }
-    }
-};
-
 const styles = StyleSheet.create({
-    container: {
-        marginTop: 25,
-        flex: 1,
+    mainStyle:{
+        flex:1,
+        width:screenW,
+        backgroundColor:"#1ab9af",
+        justifyContent:'center',
+        alignItems:'center',
     },
-    content: {
-        backgroundColor: 'rgba(200, 230, 255, 0.8)',
-        marginBottom: 10,
-        justifyContent: "center",
-        alignSelf: "center",
-    },
-    button: Platform.select({
-        ios: {},
-        android: {
-            elevation: 4,
-            // Material design blue from https://material.google.com/style/color.html#color-color-palette
-            backgroundColor: '#2196F3',
-            borderRadius: 2,
-            width: 100,
-            height: 30,
-        },
-        justifyContent: "center",
-        alignSelf: "center",
-    }),
-    buttonText: {
-        alignSelf: "center",
+    touchStyle: {
+        backgroundColor: 'gray',
     }
-});
+})

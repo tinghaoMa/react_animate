@@ -12,4 +12,4 @@ import AnimatedSequence from './animations/AnimatedSequence';
 import AnimatedStagger from './animations/AnimatedStagger';
 import {name as appName} from './app.json';
 
-AppRegistry.registerComponent(appName, () => AnimatedStagger);
+AppRegistry.registerComponent(appName, () => LayoutAnimationDemo);
