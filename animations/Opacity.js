@@ -14,6 +14,7 @@ import {
     Image,
     StyleSheet,
     Easing,
+    InteractionManager
 } from 'react-native';
 
 
@@ -29,10 +30,18 @@ export default class Opacity extends Component {
             this.state.fadeOutOpacity,
             {
                 toValue: 0,  //透明度动画最终值
-                duration: 3000,   //动画时长3000毫秒
+                duration: 5000,   //动画时长3000毫秒
                 easing: Easing.linear,
             }
         );
+    }
+
+    componentDidMount() {
+
+        InteractionManager.runAfterInteractions(() => {
+            console.log('hello world');
+        })
+        this._startAnimated();
     }
 
     _startAnimated() {
@@ -62,7 +71,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    touchStyle:{
-        backgroundColor:'gray',
+    touchStyle: {
+        backgroundColor: 'gray',
     }
 })

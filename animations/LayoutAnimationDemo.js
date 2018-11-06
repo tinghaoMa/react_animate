@@ -27,10 +27,11 @@ if (Platform.OS === 'android') {
 var screenW = Dimensions.get('window').width;
 var screenH = Dimensions.get('window').height;
 
-export default class LayoutAnimationDemo extends Component {
+export default class LayoutAnimationDemo extends React.Component {
+
+
     constructor(props) {
         super(props)
-
         this.state = {
             width: 100,
             height: 150,
@@ -40,6 +41,10 @@ export default class LayoutAnimationDemo extends Component {
     }
 
     _clickStartAnimation() {
+        let a ={
+            name:'111'
+        }
+        console.log(a);
         LayoutAnimation.configureNext({
             duration: 1000,   //持续时间
             create: {
@@ -78,6 +83,12 @@ export default class LayoutAnimationDemo extends Component {
 
                 <TouchableOpacity style={{width: 200, height: 50, backgroundColor: 'yellow', marginTop: 40}}
                                   onPress={this._clickStartAnimation.bind(this)}>
+                    {/*
+                                                      onPress={()=>{
+                                      console.log('hello world');
+                                  }}>
+
+                    */}
                     <Text style={{width: 200, height: 50, textAlign: 'center', lineHeight: 50}}>点击开始动画</Text>
                 </TouchableOpacity>
             </View>
